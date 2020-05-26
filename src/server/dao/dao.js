@@ -1,9 +1,9 @@
-//methods for fetching mysql data  
+// Methods for fetching MySQL data  
 var connection = require('../connection/db_connection');  
   
 function DAO() {  
   
-    // get all users data   
+    // Get all Topics data   
     this.getAllTopics = function (res) {  
         // initialize database connection  
         connection.init();  
