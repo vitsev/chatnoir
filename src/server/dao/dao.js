@@ -12,8 +12,7 @@ function DAO() {
         connection.acquire(function (err, con) {  
             con.query('SELECT * FROM ChatDB.chat', function (err, result) {  
                 con.release(); 
-                console.log(result); 
-                // res.send(result);  
+                res.send(result);  
             });  
         });  
     };  
