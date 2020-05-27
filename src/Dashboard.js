@@ -55,7 +55,7 @@ export default function Dashboard() {
         <div>
             <Paper elevation={3} className={classes.root}>
                 <Typography variant="h4" component="h4">
-                    OL.Chat
+                    Chat Application
                 </Typography>
                 <Typography variant="h5" component="h5">
                     Topic : {activeTopic}

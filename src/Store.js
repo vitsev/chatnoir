@@ -52,6 +52,10 @@ const Store = props => {
         })
     }
 
+
+
+
+    
     const user = 'Oleg' + Math.random(100).toFixed(2)
 
     return (
