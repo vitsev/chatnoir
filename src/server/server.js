@@ -1,6 +1,7 @@
 // Server implementation
 
 var express = require('express');  
+var cors = require('cors');
 // var bodyparser = require('body-parser');  
   
 var routes = require('./routes/route');  
@@ -10,6 +11,7 @@ var app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
+app.use(cors());
 // for posting nested object if we have set extended true  
 // app.use(bodyparser.urlencoded({ extended : true}));  
 // parsing JSON  

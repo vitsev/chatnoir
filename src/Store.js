@@ -24,7 +24,6 @@ const reducer = (state, action) => {
     const { from, msg, topic } = action.payload;
     switch (action.type) {
       case 'RECEIVE_MESSAGE':
-        console.log("RM");  
         return {
           ...state,
           [topic]: [...state[topic], { from, msg }]
@@ -52,11 +51,21 @@ const Store = props => {
         })
     }
 
-
-
-
-    
     const user = 'Oleg' + Math.random(100).toFixed(2)
+
+/* TEST FETCH
+    React.useEffect(() => {
+      fetch('http://localhost:3001/api/topics/1', {
+        method: 'GET',
+        headers: {'Content-Type':'application/json'},
+      })
+        .then(res => res.json())
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => console.log(error));
+    });
+*/
 
     return (
         <CTX.Provider value={{allChats, sendChatAction, user}}>
