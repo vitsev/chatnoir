@@ -1,5 +1,7 @@
 import React from 'react'
 import io from 'socket.io-client'
+import messageReducer from './actions/MessageReducer'
+import {receiveMessageAction} from './actions/MessageActions'
 
 export const CTX = React.createContext();
 
@@ -19,20 +21,6 @@ const initState = {
     ]
 }
 
-
-const reducer = (state, action) => {
-    const { from, msg, topic } = action.payload;
-    switch (action.type) {
-      case 'RECEIVE_MESSAGE':
-        return {
-          ...state,
-          [topic]: [...state[topic], { from, msg }]
-        };
-      default:
-        return state;
-    }
-  };
-
 let socket;
 
 
@@ -42,33 +30,32 @@ function sendChatAction(value) {
 
 
 const Store = props => {
-    const [allChats, dispatch] = React.useReducer(reducer, initState);
+    const [allChats, dispatch] = React.useReducer(messageReducer, initState);
  
     if(!socket) {
         socket = io(':3001')
         socket.on('chat message', function(msg){
-          dispatch({type: 'RECEIVE_MESSAGE', payload: msg});
+            dispatch(receiveMessageAction(msg));
         })
     }
 
     const user = 'Oleg' + Math.random(100).toFixed(2)
 
-/* TEST FETCH
+    const [allUsers, setAllUsers] = React.useState([]);
     React.useEffect(() => {
-      fetch('http://localhost:3001/api/topics/1', {
-        method: 'GET',
-        headers: {'Content-Type':'application/json'},
-      })
+        fetch('http://localhost:3001/api/users', {
+            method: 'GET',
+            headers: {'Content-Type':'application/json'},
+        })
         .then(res => res.json())
         .then(response => {
-          console.log(response);
+            setAllUsers(response);
         })
         .catch(error => console.log(error));
-    });
-*/
+    }, [setAllUsers]);
 
     return (
-        <CTX.Provider value={{allChats, sendChatAction, user}}>
+        <CTX.Provider value={{allChats, allUsers, sendChatAction, user}}>
             {props.children}
         </CTX.Provider>
     )

@@ -44,7 +44,7 @@ export default function Dashboard() {
     const classes = useStyles();
 
     // CTX store
-    const {allChats, sendChatAction, user} = React.useContext(CTX);
+    const {allChats, allUsers, sendChatAction, user} = React.useContext(CTX);
     const topics = Object.keys(allChats);
 
     // Local state
