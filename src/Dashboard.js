@@ -6,7 +6,7 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
-import MessageItem from './components/MessageItem'
+import MessageList from './components/MessageList'
 import CommentIcon from '@material-ui/icons/Comment'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
@@ -25,11 +25,6 @@ const useStyles = makeStyles(theme => ({
         width: '30%',
         height: '300px',
         borderRight: '1px solid grey',
-    },
-    chatWindow: {
-        width: '70%',
-        height: '300px',
-        padding: '15px'
     },
     chatBox: {
         width: '85%'
@@ -85,23 +80,7 @@ export default function Dashboard() {
                             }
                         </List>
                     </div>
-                    <div className={classes.chatWindow}>
-                        {
-                            allUsers &&
-                            activeTopic &&
-                            activeTopic.hasOwnProperty('chat_id') &&
-                            allUserMessages[activeTopic['chat_id']] &&
-                            
-                            <List style={{maxHeight: '100%', overflow: 'auto'}}>
-                                {
-                                allUserMessages[activeTopic['chat_id']].map(message => (
-                                    <MessageItem userName={allUsers[message.message_user_id]['user_name']} message={message}/>
-
-                                ))
-                                }
-                            </List>
-                        }
-                    </div>
+                    <MessageList allUsers={allUsers} allUserMessages={allUserMessages} activeTopic ={activeTopic}/>
                 </div>
                 <div className={classes.flex}>
                     <TextField

@@ -16,6 +16,8 @@ const useStyles = makeStyles((theme) => ({
 export default function MessageItem(props) {
     const classes = useStyles();
 
+    const {userName, message} = props;
+
     return (
         <div>
             <ListItem alignItems="flex-start">
@@ -26,7 +28,7 @@ export default function MessageItem(props) {
                 <ListItemText
                     primary={
                         <React.Fragment>
-                            {props.userName}
+                            {userName}
                             
                             <Typography
                             component="span"
@@ -34,7 +36,7 @@ export default function MessageItem(props) {
                             className={classes.inline}
                             color="textSecondary"
                             >
-                                {'  -  ' + props.message.message_datetime}
+                                {'  -  ' + message.message_datetime}
                             </Typography>
                             
                         </React.Fragment>
@@ -47,7 +49,7 @@ export default function MessageItem(props) {
                             className={classes.inline}
                             color="textPrimary"
                         >
-                            {props.message.message_text}
+                            {message.message_text}
                         </Typography>
                     }
                 />
