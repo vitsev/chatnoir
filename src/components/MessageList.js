@@ -27,7 +27,11 @@ export default function MessageList(props) {
             <List style={{maxHeight: '100%', overflow: 'auto'}}>
                 {
                 allUserMessages[activeTopic['chat_id']].map(message => (
-                    <MessageItem userName={allUsers[message.message_user_id]['user_name']} message={message}/>
+                    <MessageItem 
+                    userName={allUsers[message.message_user_id]['user_name']} 
+                    message={message} 
+                    key={message.message_datetime}
+                    />
 
                 ))
                 }

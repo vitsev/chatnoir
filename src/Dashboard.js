@@ -54,7 +54,7 @@ export default function Dashboard() {
 
     return (
         <div>
-            <Paper elevation={3} className={classes.root}>
+            <Paper elevation={3} className={classes.root} >
                 <Typography variant="h4" component="h4">
                     Chat Application: {curUserName}
                 </Typography>
