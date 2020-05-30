@@ -46,7 +46,6 @@ function DAO() {
                 // Result contains all chat topics for a given user
                 con.query('SELECT * FROM ChatDB.message WHERE message.message_chat_id IN (' + userTopics.join(', ') + ')', function (err, result) { 
                     con.release(); 
-                    console.log(result);
                     res.send(result);  
                 });
             });  

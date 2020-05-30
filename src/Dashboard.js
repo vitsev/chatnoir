@@ -116,7 +116,7 @@ export default function Dashboard() {
                         variant="contained" 
                         color="primary"
                         onClick={() => {
-                            // sendChatAction({topicID: activeTopic['chat_id'], userID: curUser['user_id'], datetime: new Date(), text: textValue});
+                            sendChatAction({topicID: activeTopic['chat_id'], userID: curUser['user_id'], datetime: new Date(), text: textValue});
                             changeTextValue("");
                         }}
                     >

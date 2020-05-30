@@ -1,5 +1,5 @@
 
-// Converting an Array to Object indexed by primary key
+// Converting Array to Object indexed by primary key
 export function indexArrayByKey (array, key) {
     const initialValue = {};
     return array.reduce((obj, item) => {
@@ -10,7 +10,7 @@ export function indexArrayByKey (array, key) {
     }, initialValue);
 };
 
-// Converting an Array to Object grouped by a key
+// Converting Array to Object grouped by some key
 export function groupArrayByKey (array, key) {
     const initialValue = {};
     return array.reduce((obj, item) => {

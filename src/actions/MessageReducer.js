@@ -2,9 +2,13 @@
 import * as ActionTypes from './ActionTypes'
 
 export default function messageReducer(state, action) {
-    const { topicID, userID, datetime, text } = action.payload;
     switch (action.type) {
-        case ActionTypes.RECEIVE_MESSAGE:
+        case ActionTypes.INIT_MESSAGES:
+            // Payload contains messages received from server during initialization => initialize the state
+            return action.payload;
+        case ActionTypes.RECEIVE_NEW_MESSAGE:
+            // Payload contains a new message received from server => add it to the existing state
+            const { topicID, userID, datetime, text } = action.payload;
             return {
                 ...state,
                 [topicID]: [...state[topicID], 
