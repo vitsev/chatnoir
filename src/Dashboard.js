@@ -5,9 +5,10 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
+import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
-import Chip from '@material-ui/core/Chip'
+import Divider from '@material-ui/core/Divider'
 import CommentIcon from '@material-ui/icons/Comment'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
@@ -93,15 +94,48 @@ export default function Dashboard() {
                             activeTopic.hasOwnProperty('chat_id') &&
                             allUserMessages[activeTopic['chat_id']] &&
 
-                            allUserMessages[activeTopic['chat_id']].map(message => (
-                                <div className={classes.flex}>
-                                    <Chip
-                                        avatar={<Avatar alt={allUsers[message.message_user_id]['user_name']} 
-                                        src="/static/images/oleg1.jpg" />}
-                                        label={message.message_text}
-                                    />
-                                </div>
-                            ))
+                            <List>
+                                {
+                                allUserMessages[activeTopic['chat_id']].map(message => (
+                                    <div>
+                                        <ListItem alignItems="flex-start">
+                                            <ListItemAvatar>
+                                            <Avatar alt="Remy Sharp" src="/static/images/oleg.jpg" />
+                                            </ListItemAvatar>
+                                            <ListItemText
+                                            primary={
+                                                <React.Fragment>
+                                                    {allUsers[message.message_user_id]['user_name']}
+                                                    
+                                                    <Typography
+                                                    component="span"
+                                                    variant="body2"
+                                                    className={classes.inline}
+                                                    color="textSecondary"
+                                                    >
+                                                        {'  -  ' + message.message_datetime}
+                                                    </Typography>
+                                                    
+                                                </React.Fragment>
+                                                
+                                            }
+                                            secondary={
+                                                <Typography
+                                                    component="span"
+                                                    variant="body2"
+                                                    className={classes.inline}
+                                                    color="textPrimary"
+                                                >
+                                                    {message.message_text}
+                                                </Typography>
+                                            }
+                                            />
+                                        </ListItem>
+                                        <Divider variant="inset" component="li" />
+                                    </div>
+                                ))
+                                }
+                            </List>
                         }
                     </div>
                 </div>
