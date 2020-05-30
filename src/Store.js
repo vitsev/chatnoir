@@ -2,8 +2,14 @@ import React from 'react'
 import io from 'socket.io-client'
 import messageReducer from './actions/MessageReducer'
 import {receiveMessageAction} from './actions/MessageActions'
+import {convertArrayToObject} from './utils/Utils'
+import {getAllUsers} from './services/ChatService'
+import {getAllTopics} from './services/ChatService'
 
 export const CTX = React.createContext();
+
+// Current user ID
+const curUserID = Math.round(Math.random()) + 1; // Random value [1, 2]
 
 const initState = {
     topic1: [
@@ -29,7 +35,7 @@ function sendChatAction(value) {
 }
 
 
-const Store = props => {
+export default function Store(props) {
     const [allChats, dispatch] = React.useReducer(messageReducer, initState);
  
     if(!socket) {
@@ -39,26 +45,23 @@ const Store = props => {
         })
     }
 
-    const user = 'Oleg' + Math.random(100).toFixed(2)
-
-    const [allUsers, setAllUsers] = React.useState([]);
+    // Fetch all users
+    const [curUser, setCurUser] = React.useState({});
     React.useEffect(() => {
-        fetch('http://localhost:3001/api/users', {
-            method: 'GET',
-            headers: {'Content-Type':'application/json'},
-        })
-        .then(res => res.json())
-        .then(response => {
-            setAllUsers(response);
-        })
-        .catch(error => console.log(error));
-    }, [setAllUsers]);
+        getAllUsers().then(allUsers => {
+            setCurUser(convertArrayToObject(allUsers, 'user_id')[curUserID])
+        });
+    },[setCurUser])
+
+    // Fetch all topics for the current user
+    const [allTopics, setAllTopics] = React.useState([]);
+    React.useEffect(() => {
+        getAllTopics(curUserID).then(t => setAllTopics(t));
+    },[setAllTopics])
 
     return (
-        <CTX.Provider value={{allChats, allUsers, sendChatAction, user}}>
+        <CTX.Provider value={{curUser, allTopics, allChats, sendChatAction}}>
             {props.children}
         </CTX.Provider>
     )
 }
-
-export default Store;

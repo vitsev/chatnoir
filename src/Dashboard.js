@@ -44,7 +44,10 @@ export default function Dashboard() {
     const classes = useStyles();
 
     // CTX store
-    const {allChats, allUsers, sendChatAction, user} = React.useContext(CTX);
+    const {curUser, allTopics, allChats, sendChatAction} = React.useContext(CTX);
+
+    const curUserName = (curUser.hasOwnProperty('user_name')) ? curUser['user_name'] : '';
+
     const topics = Object.keys(allChats);
 
     // Local state
@@ -55,7 +58,7 @@ export default function Dashboard() {
         <div>
             <Paper elevation={3} className={classes.root}>
                 <Typography variant="h4" component="h4">
-                    Chat Application
+                    Chat Application: {curUserName}
                 </Typography>
                 <Typography variant="h5" component="h5">
                     Topic : {activeTopic}
@@ -105,7 +108,7 @@ export default function Dashboard() {
                         variant="contained" 
                         color="primary"
                         onClick={() => {
-                            sendChatAction({from: user, msg: textValue, topic: activeTopic});
+                            sendChatAction({from: curUser['user_id'], msg: textValue, topic: activeTopic});
                             changeTextValue("");
                         }}
                     >
