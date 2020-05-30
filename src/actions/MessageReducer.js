@@ -2,12 +2,13 @@
 import * as ActionTypes from './ActionTypes'
 
 export default function messageReducer(state, action) {
-    const { from, msg, topic } = action.payload;
+    const { topicID, userID, datetime, text } = action.payload;
     switch (action.type) {
         case ActionTypes.RECEIVE_MESSAGE:
             return {
                 ...state,
-                [topic]: [...state[topic], { from, msg }]
+                [topicID]: [...state[topicID], 
+                    { message_datetime: datetime, message_text: text, message_chat_id: topicID, message_user_id: userID }]
             };
         default:
             return state;

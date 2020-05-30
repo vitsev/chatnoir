@@ -2,9 +2,11 @@ import React from 'react'
 import io from 'socket.io-client'
 import messageReducer from './actions/MessageReducer'
 import {receiveMessageAction} from './actions/MessageActions'
-import {convertArrayToObject} from './utils/Utils'
+import {indexArrayByKey} from './utils/Utils'
+import {groupArrayByKey} from './utils/Utils'
 import {getAllUsers} from './services/ChatService'
 import {getAllTopics} from './services/ChatService'
+import {getAllMessages} from './services/ChatService'
 
 export const CTX = React.createContext();
 
@@ -40,27 +42,35 @@ export default function Store(props) {
  
     if(!socket) {
         socket = io(':3001')
-        socket.on('chat message', function(msg){
-            dispatch(receiveMessageAction(msg));
+        socket.on('chat message', function(socketMessage){
+            dispatch(receiveMessageAction(socketMessage));
         })
     }
 
-    // Fetch all users
+    // Fetch current user
     const [curUser, setCurUser] = React.useState({});
     React.useEffect(() => {
         getAllUsers().then(allUsers => {
-            setCurUser(convertArrayToObject(allUsers, 'user_id')[curUserID])
+            setCurUser(indexArrayByKey(allUsers, 'user_id')[curUserID])
         });
     },[setCurUser])
 
     // Fetch all topics for the current user
     const [allTopics, setAllTopics] = React.useState([]);
     React.useEffect(() => {
-        getAllTopics(curUserID).then(t => setAllTopics(t));
+        getAllTopics(curUserID).then(topics => setAllTopics(topics));
     },[setAllTopics])
 
+    // Fetch all messages for the current user
+    const [allMessages, setAllMessages] = React.useState([]);
+    React.useEffect(() => {
+        getAllMessages(curUserID).then(messages => {
+            setAllMessages(groupArrayByKey(messages, 'message_chat_id'))
+        });
+    },[setAllMessages])
+
     return (
-        <CTX.Provider value={{curUser, allTopics, allChats, sendChatAction}}>
+        <CTX.Provider value={{curUser, allTopics, allMessages, sendChatAction}}>
             {props.children}
         </CTX.Provider>
     )

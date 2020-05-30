@@ -44,14 +44,18 @@ export default function Dashboard() {
     const classes = useStyles();
 
     // CTX store
-    const {curUser, allTopics, allChats, sendChatAction} = React.useContext(CTX);
+    const {curUser, allTopics, allMessages, sendChatAction} = React.useContext(CTX);
 
+    // Current user name 
     const curUserName = (curUser.hasOwnProperty('user_name')) ? curUser['user_name'] : '';
 
-    const topics = Object.keys(allChats);
+    // Active Topic
+    const [activeTopic, changeActiveTopic] = React.useState({});
+    React.useEffect(() => {
+        const firstTopic = allTopics[Object.keys(allTopics)[0]];
+        changeActiveTopic(firstTopic);
+    },[allTopics])
 
-    // Local state
-    const [activeTopic, changeActiveTopic] = React.useState(topics[0]);
     const [textValue, changeTextValue] = React.useState('');
 
     return (
@@ -61,19 +65,19 @@ export default function Dashboard() {
                     Chat Application: {curUserName}
                 </Typography>
                 <Typography variant="h5" component="h5">
-                    Topic : {activeTopic}
+                    Topic : {JSON.stringify(activeTopic)}
                 </Typography>
                 <div className={classes.flex}>
                     <div className={classes.topicWindow}>
                         <List>
                             {
-                                topics.map(topic => (
+                                allTopics.map(topic => (
                                     <ListItem 
                                         onClick={()=>changeActiveTopic(topic)}
-                                        key={topic} 
+                                        key={topic.chat_id} 
                                         button
                                     >
-                                    <ListItemText primary={topic}/>
+                                    <ListItemText primary={topic.chat_topic}/>
                                     <ListItemIcon>
                                         <CommentIcon />
                                     </ListItemIcon>   
@@ -84,12 +88,16 @@ export default function Dashboard() {
                     </div>
                     <div className={classes.chatWindow}>
                         {
-                            allChats[activeTopic].map(chat => (
+                            activeTopic &&
+                            activeTopic.hasOwnProperty('chat_id') &&
+                            allMessages[activeTopic['chat_id']] &&
+
+                            allMessages[activeTopic['chat_id']].map(message => (
                                 <div className={classes.flex}>
                                     <Chip
-                                        avatar={<Avatar alt={chat.user} 
-                                        src="/static/images/oleg.jpg" />}
-                                        label={chat.msg}
+                                        avatar={<Avatar alt={message.message_user_id} 
+                                        src="/static/images/oleg1.jpg" />}
+                                        label={message.message_text}
                                     />
                                 </div>
                             ))
@@ -108,7 +116,7 @@ export default function Dashboard() {
                         variant="contained" 
                         color="primary"
                         onClick={() => {
-                            sendChatAction({from: curUser['user_id'], msg: textValue, topic: activeTopic});
+                            // sendChatAction({topicID: activeTopic['chat_id'], userID: curUser['user_id'], datetime: new Date(), text: textValue});
                             changeTextValue("");
                         }}
                     >
