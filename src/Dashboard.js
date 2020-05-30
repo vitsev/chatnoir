@@ -44,10 +44,10 @@ export default function Dashboard() {
     const classes = useStyles();
 
     // CTX store
-    const {curUser, allTopics, allMessages, sendChatAction} = React.useContext(CTX);
+    const {curUserID, allUsers, allTopics, allUserMessages, sendChatAction} = React.useContext(CTX);
 
     // Current user name 
-    const curUserName = (curUser.hasOwnProperty('user_name')) ? curUser['user_name'] : '';
+    const curUserName = allUsers && allUsers[curUserID] && allUsers[curUserID]['user_name'];
 
     // Active Topic
     const [activeTopic, changeActiveTopic] = React.useState({});
@@ -88,14 +88,15 @@ export default function Dashboard() {
                     </div>
                     <div className={classes.chatWindow}>
                         {
+                            allUsers &&
                             activeTopic &&
                             activeTopic.hasOwnProperty('chat_id') &&
-                            allMessages[activeTopic['chat_id']] &&
+                            allUserMessages[activeTopic['chat_id']] &&
 
-                            allMessages[activeTopic['chat_id']].map(message => (
+                            allUserMessages[activeTopic['chat_id']].map(message => (
                                 <div className={classes.flex}>
                                     <Chip
-                                        avatar={<Avatar alt={message.message_user_id} 
+                                        avatar={<Avatar alt={allUsers[message.message_user_id]['user_name']} 
                                         src="/static/images/oleg1.jpg" />}
                                         label={message.message_text}
                                     />
@@ -116,7 +117,7 @@ export default function Dashboard() {
                         variant="contained" 
                         color="primary"
                         onClick={() => {
-                            sendChatAction({topicID: activeTopic['chat_id'], userID: curUser['user_id'], datetime: new Date(), text: textValue});
+                            sendChatAction({topicID: activeTopic['chat_id'], userID: curUserID, datetime: new Date(), text: textValue});
                             changeTextValue("");
                         }}
                     >

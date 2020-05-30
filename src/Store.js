@@ -23,7 +23,7 @@ function sendChatAction(value) {
 
 
 export default function Store(props) {
-    const [allMessages, dispatch] = React.useReducer(messageReducer, {});
+    const [allUserMessages, dispatch] = React.useReducer(messageReducer, {});
  
     if(!socket) {
         socket = io(':3001')
@@ -33,12 +33,12 @@ export default function Store(props) {
     }
 
     // Fetch current user
-    const [curUser, setCurUser] = React.useState({});
+    const [allUsers, setAllUsers] = React.useState({});
     React.useEffect(() => {
         getAllUsers().then(allUsers => {
-            setCurUser(indexArrayByKey(allUsers, 'user_id')[curUserID])
+            setAllUsers(indexArrayByKey(allUsers, 'user_id'))
         });
-    },[setCurUser])
+    },[setAllUsers])
 
     // Fetch all topics for the current user
     const [allTopics, setAllTopics] = React.useState([]);
@@ -55,7 +55,7 @@ export default function Store(props) {
     },[dispatch])
 
     return (
-        <CTX.Provider value={{curUser, allTopics, allMessages, sendChatAction}}>
+        <CTX.Provider value={{curUserID, allUsers, allTopics, allUserMessages, sendChatAction}}>
             {props.children}
         </CTX.Provider>
     )
