@@ -92,7 +92,7 @@ export default function Dashboard() {
                             activeTopic.hasOwnProperty('chat_id') &&
                             allUserMessages[activeTopic['chat_id']] &&
                             
-                            <List>
+                            <List style={{maxHeight: '100%', overflow: 'auto'}}>
                                 {
                                 allUserMessages[activeTopic['chat_id']].map(message => (
                                     <MessageItem userName={allUsers[message.message_user_id]['user_name']} message={message}/>
