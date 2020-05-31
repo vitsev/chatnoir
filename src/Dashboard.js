@@ -1,7 +1,5 @@
 import React from 'react'
 import Paper from '@material-ui/core/Paper'
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
@@ -9,6 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import CommentIcon from '@material-ui/icons/Comment'
 import MessageList from './components/MessageList'
 import Header from './components/Header'
+import ChatBox from './components/ChatBox'
 
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -30,9 +29,6 @@ const useStyles = makeStyles(theme => ({
     chatBox: {
         width: '85%'
     },
-    button: {
-        width: '15%'
-    },
 }));
 
 export default function Dashboard() {
@@ -50,8 +46,6 @@ export default function Dashboard() {
         const firstTopic = allTopics[Object.keys(allTopics)[0]];
         changeActiveTopic(firstTopic);
     },[allTopics])
-
-    const [textValue, changeTextValue] = React.useState('');
 
     return (
         <div>
@@ -79,25 +73,7 @@ export default function Dashboard() {
                     </div>
                     <MessageList allUsers={allUsers} allUserMessages={allUserMessages} activeTopic ={activeTopic}/>
                 </div>
-                <div className={classes.flex}>
-                    <TextField
-                        label="Send a message"
-                        className={classes.chatBox}
-                        variant="outlined"
-                        value={textValue}
-                        onChange={e => changeTextValue(e.target.value)}
-                    />
-                    <Button 
-                        variant="contained" 
-                        color="primary"
-                        onClick={() => {
-                            sendChatAction({topicID: activeTopic['chat_id'], userID: curUserID, datetime: new Date(), text: textValue});
-                            changeTextValue("");
-                        }}
-                    >
-                        Send
-                    </Button>
-                </div>
+                <ChatBox sendChatAction={sendChatAction} curUserID={curUserID} activeTopic ={activeTopic}/>
             </Paper>
         </div>
     )

@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles(theme => ({
     chatWindow: {
-        width: '70%',
+        flexGrow: 1,
         height: '300px',
         padding: '15px'
     }
