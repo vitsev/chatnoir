@@ -6,9 +6,10 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
-import MessageList from './components/MessageList'
 import CommentIcon from '@material-ui/icons/Comment'
-import Typography from '@material-ui/core/Typography'
+import MessageList from './components/MessageList'
+import Header from './components/Header'
+
 import { makeStyles } from '@material-ui/core/styles'
 
 import { CTX } from './Store'
@@ -55,12 +56,8 @@ export default function Dashboard() {
     return (
         <div>
             <Paper elevation={3} className={classes.root} >
-                <Typography variant="h4" component="h4">
-                    Chat Application: {curUserName}
-                </Typography>
-                <Typography variant="h5" component="h5">
-                    Topic : {JSON.stringify(activeTopic)}
-                </Typography>
+                <Header curUserName={curUserName} activeTopic={activeTopic}/>
+                
                 <div className={classes.flex}>
                     <div className={classes.topicWindow}>
                         <List>
