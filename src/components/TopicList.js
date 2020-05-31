@@ -20,15 +20,23 @@ export default function TopicList(props) {
 
     const {allTopics, changeActiveTopic} = props;
 
+    const [selectedIndex, setSelectedIndex] = React.useState(1);
+
     return (
         <div className={classes.topicWindow}>
             <List>
                 {
                     allTopics.map(topic => (
+                        
+
                         <ListItem 
-                            onClick={()=>changeActiveTopic(topic)}
+                            selected= {selectedIndex === allTopics.indexOf(topic) + 1}
                             key={topic.chat_id} 
                             button
+                            onClick={()=>{
+                                setSelectedIndex(allTopics.indexOf(topic) + 1)
+                                changeActiveTopic(topic)
+                            }}
                         >
                         <ListItemText primary={topic.chat_topic}/>
                         <ListItemIcon>
