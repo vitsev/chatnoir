@@ -5,6 +5,7 @@ import {initMessagesAction} from './actions/MessageActions'
 import {receiveNewMessageAction} from './actions/MessageActions'
 import {indexArrayByKey} from './utils/Utils'
 import {groupArrayByKey} from './utils/Utils'
+import {addAvatarToUsers} from './utils/Utils'
 import {getAllUsers} from './services/ChatService'
 import {getAllTopics} from './services/ChatService'
 import {getAllMessages} from './services/ChatService'
@@ -36,7 +37,7 @@ export default function Store(props) {
     const [allUsers, setAllUsers] = React.useState({});
     React.useEffect(() => {
         getAllUsers().then(allUsers => {
-            setAllUsers(indexArrayByKey(allUsers, 'user_id'))
+            setAllUsers(addAvatarToUsers(indexArrayByKey(allUsers, 'user_id')));
         });
     },[setAllUsers])
 

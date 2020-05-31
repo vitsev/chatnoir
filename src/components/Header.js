@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Header(props) {
     const classes = useStyles();
 
-    const {curUserName, activeTopic} = props;
+    const {curUserName} = props;
 
     return (
         <div>

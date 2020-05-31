@@ -22,3 +22,13 @@ export function groupArrayByKey (array, key) {
         };
     }, initialValue);
 };
+
+export const USER1_IMAGE_PATH = '/static/images/oleg.jpg'
+export const USER2_IMAGE_PATH = '/static/images/svetlana.png'
+// Adding hardcoded image path to User object properties
+export function addAvatarToUsers (allUsers) {
+    allUsers[1].avatarPath = USER1_IMAGE_PATH;
+    allUsers[2].avatarPath = USER2_IMAGE_PATH;
+
+    return allUsers;
+}

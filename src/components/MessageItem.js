@@ -16,19 +16,19 @@ const useStyles = makeStyles((theme) => ({
 export default function MessageItem(props) {
     const classes = useStyles();
 
-    const {userName, message} = props;
+    const {user, message} = props;
 
     return (
         <div>
             <ListItem alignItems="flex-start">
                 <ListItemAvatar>
-                    <Avatar alt="Remy Sharp" src="/static/images/oleg.jpg" />
+                    <Avatar alt={user['user_name']} src={user['avatarPath']} />
                 </ListItemAvatar>
 
                 <ListItemText
                     primary={
                         <React.Fragment>
-                            {userName}
+                            {user['user_name']}
                             
                             <Typography
                             component="span"
