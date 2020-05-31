@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
     },
     topicWindow: {
-        width: '30%',
+        width: '200px',
         height: '300px',
         borderRight: '1px solid grey',
     },
@@ -42,7 +42,7 @@ export default function Dashboard() {
     const {curUserID, allUsers, allTopics, allUserMessages, sendChatAction} = React.useContext(CTX);
 
     // Current user name 
-    const curUserName = allUsers && allUsers[curUserID] && allUsers[curUserID]['user_name'];
+    const curUser = allUsers && allUsers[curUserID];
 
     // Active Topic
     const [activeTopic, changeActiveTopic] = React.useState({});
@@ -56,7 +56,7 @@ export default function Dashboard() {
     return (
         <div>
             <Paper elevation={3} className={classes.root} >
-                <Header curUserName={curUserName} />
+                <Header curUser={curUser} />
 
                 <div className={classes.flex}>
                     <div className={classes.topicWindow}>

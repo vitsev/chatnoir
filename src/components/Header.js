@@ -18,21 +18,25 @@ const useStyles = makeStyles((theme) => ({
 export default function Header(props) {
     const classes = useStyles();
 
-    const {curUserName} = props;
+    const {curUser} = props;
 
     return (
-        <div>
+        <div> 
+        {   
+            curUser &&
+
             <AppBar position="static">
                 <Toolbar>
-                    <Avatar alt={curUserName} src="/static/images/svetlana.png" />
+                    <Avatar alt="OOO" src={curUser['avatarPath']} />
                     <Typography variant="subtitle1" className={classes.avatarText}>
-                        {curUserName}
+                        {curUser['user_name']}
                     </Typography>
                     <Typography variant="h5" className={classes.title}>
                         Chat Noir
                     </Typography>
                 </Toolbar>
             </AppBar>
+        }
         </div>
     )
 }
