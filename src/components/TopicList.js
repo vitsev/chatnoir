@@ -8,7 +8,7 @@ import CommentIcon from '@material-ui/icons/Comment'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
-    topicWindow: {
+    topicList: {
         width: '200px',
         height: '300px',
         borderRight: '1px solid grey',
@@ -20,10 +20,11 @@ export default function TopicList(props) {
 
     const {allTopics, changeActiveTopic} = props;
 
+    // State for controlling selected
     const [selectedIndex, setSelectedIndex] = React.useState(1);
 
     return (
-        <div className={classes.topicWindow}>
+        <div className={classes.topicList}>
             <List>
                 {
                     allTopics.map(topic => (
@@ -38,11 +39,11 @@ export default function TopicList(props) {
                                 changeActiveTopic(topic)
                             }}
                         >
-                        <ListItemText primary={topic.chat_topic}/>
-                        <ListItemIcon>
-                            <CommentIcon />
-                        </ListItemIcon>   
-                    </ListItem>                               
+                            <ListItemText primary={topic.chat_topic}/>
+                            <ListItemIcon>
+                                <CommentIcon />
+                            </ListItemIcon>   
+                        </ListItem>                               
                     ))
                 }
             </List>

@@ -4,7 +4,6 @@ import TopicList from './components/TopicList'
 import MessageList from './components/MessageList'
 import Header from './components/Header'
 import ChatBox from './components/ChatBox'
-
 import { makeStyles } from '@material-ui/core/styles'
 
 import { CTX } from './Store'
@@ -28,7 +27,7 @@ export default function Dashboard() {
     // Current user object 
     const curUser = allUsers && allUsers[curUserID];
 
-    // Active Topic
+    // Active topic
     const [activeTopic, changeActiveTopic] = React.useState({});
     React.useEffect(() => {
         const firstTopic = allTopics[Object.keys(allTopics)[0]];

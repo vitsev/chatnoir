@@ -15,9 +15,10 @@ export const CTX = React.createContext();
 // Current user ID
 const curUserID = Math.round(Math.random()) + 1; // Random value [1, 2]
 
+// Socket instance
 let socket;
 
-
+// Send message to Socket for broadcasting
 function sendChatAction(value) {
     socket.emit('chat message', value);
 }
