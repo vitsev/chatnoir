@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ChatBox(props) {
     const classes = useStyles();
 
-    const {sendChatAction, curUserID, activeTopic} = props;
+    const {curUserID, activeTopic, sendChatAction} = props;
 
     const [textValue, changeTextValue] = React.useState('');
 
