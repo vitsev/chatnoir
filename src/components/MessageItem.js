@@ -36,7 +36,7 @@ export default function MessageItem(props) {
                             className={classes.inline}
                             color="textSecondary"
                             >
-                                {'  -  ' + message.message_datetime}
+                                {'  -  ' + new Date(message.message_datetime).toLocaleString("en-US")}
                             </Typography>
                             
                         </React.Fragment>
