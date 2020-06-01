@@ -17,7 +17,10 @@ function DBConnection() {
   
     // Acquire connection and execute query on callbacks  
     this.acquire = function(callback) {  
-        this.pool.getConnection(function(err, connection) {  
+        this.pool.getConnection(function(err, connection) {
+            // Check for error
+            if (err) throw err;
+  
             callback(err, connection);
         });  
     };  
