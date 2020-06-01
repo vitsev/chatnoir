@@ -2,9 +2,9 @@
 
 var express = require('express');  
 var cors = require('cors');
-// var bodyparser = require('body-parser');  
-  
 var routes = require('./routes/route');  
+var config = require('./server_config'); 
+// var bodyparser = require('body-parser');  
   
 // Creating express server for handling HTTP requests + Socket.io
 var app = express(); 
@@ -29,6 +29,6 @@ io.on('connection', function (socket){
     });
 });
 
-var server = http.listen(3001, function(){
+var server = http.listen(config.APP_PORT, function(){
     console.log('Server listening on port ' + server.address().port);  
 });
