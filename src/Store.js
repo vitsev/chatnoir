@@ -28,7 +28,7 @@ export default function Store(props) {
     const [allUserMessages, dispatch] = React.useReducer(messageReducer, {});
  
     if(!socket) {
-        socket = io(':3001')
+        socket = io(process.env.REACT_APP_SERVER_URL)
         socket.on('chat message', function(socketMessage){
             dispatch(receiveNewMessageAction(socketMessage));
         })

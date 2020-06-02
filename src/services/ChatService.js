@@ -5,7 +5,7 @@ export function getAllUsers(){
         headers: {'Content-Type':'application/json'}
     }
 
-    return fetch('http://localhost:3001/api/users', requestOptions)
+    return fetch(process.env.REACT_APP_SERVER_URL + '/api/users', requestOptions)
     .then(handleResponse);
 }
 
@@ -15,7 +15,7 @@ export function getAllTopics(userID){
         headers: {'Content-Type':'application/json'}
     }
 
-    return fetch('http://localhost:3001/api/users/' + userID + '/topics', requestOptions)
+    return fetch(process.env.REACT_APP_SERVER_URL + '/api/users/' + userID + '/topics', requestOptions)
     .then(handleResponse);
 }
 
@@ -25,7 +25,7 @@ export function getAllMessages(userID){
         headers: {'Content-Type':'application/json'}
     }
 
-    return fetch('http://localhost:3001/api/users/' + userID + '/messages', requestOptions)
+    return fetch(process.env.REACT_APP_SERVER_URL + '/api/users/' + userID + '/messages', requestOptions)
     .then(handleResponse);
 }
 
