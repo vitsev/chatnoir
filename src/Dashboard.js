@@ -37,7 +37,7 @@ export default function Dashboard() {
     return (
         <div>
             <Paper elevation={3} className={classes.root} >
-                <Header curUser={curUser} />
+                <Header curUser={curUser} activeTopic={activeTopic}/>
 
                 <div className={classes.flex}>
                     <TopicList allTopics ={allTopics} changeActiveTopic={changeActiveTopic} /> 

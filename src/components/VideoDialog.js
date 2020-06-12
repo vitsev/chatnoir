@@ -5,7 +5,7 @@ import Jutsu from './Jutsu'
 
 export default function VideoDialog(props) {
 
-    const { open, onClose } = props;
+    const { open, onClose, curUser, activeTopic } = props;
 
     const handleClose = () => {
         onClose();
@@ -16,9 +16,9 @@ export default function VideoDialog(props) {
             <DialogTitle id="simple-dialog-title">Video Call</DialogTitle>
             <div>
             <Jutsu
-                roomName="jhgjhkgfkkgfkgfkgf"
-                userName="Oleg"
-                loadingComponent={<p>loading ...</p>} />
+                roomName = {"ChatNoir " + activeTopic['chat_topic']}
+                displayName = {curUser['user_name']}
+                loadingComponent = {<p> loading ...</p>} />
             </div>
         </Dialog>
     );

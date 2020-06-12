@@ -20,13 +20,13 @@ const useStyles = makeStyles((theme) => ({
 export default function Header(props) {
     const classes = useStyles();
 
-    const {curUser} = props;
+    const {curUser, activeTopic} = props;
 
+    // State for controling show/hide of the Video Dialog
     const [open, setOpen] = React.useState(false);
     const handleOpen = (event) => {
         setOpen(true);
     };
-
     const handleClose = (event) => {
         setOpen(false);
     };
@@ -34,7 +34,7 @@ export default function Header(props) {
     return (
         <div> 
         {   
-            curUser &&
+            curUser && activeTopic &&
 
             <AppBar position="static">
                 <Toolbar>
@@ -54,7 +54,7 @@ export default function Header(props) {
                     >
                         <VideoCam />
                     </IconButton>
-                    <VideoDialog open={open} onClose={handleClose} />
+                    <VideoDialog open={open} onClose={handleClose} curUser={curUser} activeTopic={activeTopic}/>
                 </Toolbar>
             </AppBar>
         }

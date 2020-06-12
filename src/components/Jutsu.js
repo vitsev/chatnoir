@@ -11,7 +11,7 @@ export default function Jutsu(props) {
     const jitsi = useJitsi({ roomName, parentNode: 'jitsi-container', jwt: jwt }, domain)
 
     const containerStyle = {
-        width: '800px',
+        width: '600px',
         height: '400px'
     }
 
