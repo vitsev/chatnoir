@@ -2,20 +2,23 @@
 
 var express = require('express');  
 var cors = require('cors');
+const fs = require('fs');
 var routes = require('./routes/route');  
-var config = require('./server_config'); 
-// var bodyparser = require('body-parser');  
-  
+var config = require('./server_config');   
+
+// Certificate & Private key
+const options = {
+    key: fs.readFileSync('key.pem'),
+    cert: fs.readFileSync('cert.pem')
+};
+
 // Creating express server for handling HTTP requests + Socket.io
 var app = express(); 
-var http = require('http').createServer(app);
-var io = require('socket.io')(http);
+var https = require('https').createServer(options, app);
+var io = require('socket.io')(https);
 
+// Enable CORS for the server
 app.use(cors());
-// for posting nested object if we have set extended true  
-// app.use(bodyparser.urlencoded({ extended : true}));  
-// parsing JSON  
-// app.use(bodyparser.json());  
 
 // Set application route with server instance 
 routes.configure(app);
@@ -29,6 +32,6 @@ io.on('connection', function (socket){
     });
 });
 
-var server = http.listen(config.APP_PORT, function(){
+var server = https.listen(config.APP_PORT, function(){
     console.log('Server listening on port ' + server.address().port);  
 });
